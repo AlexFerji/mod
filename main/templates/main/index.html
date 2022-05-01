@@ -1,0 +1,69 @@
+{% load static %}
+{% load ratings %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="{% static "favicon.ico" %}">
+    <title>model3d</title>
+    <link href="{% static "css/chunk-a694db38.08d8959d.css" %}" rel="prefetch">
+    <link href="{% static "js/chunk-a694db38.5e13423f.js" %}" rel="prefetch">
+    <link href="{% static "css/app.ba35e7e7.css" %}" rel="preload" as="style">
+    <link href="{% static "js/app.6b7b8f76.js" %}" rel="preload" as="script">
+    <link href="{% static "js/chunk-vendors.9629591f.js" %}" rel="preload" as="script">
+    <link href="{% static "css/app.ba35e7e7.css" %}" rel="stylesheet">
+
+    <!-- Звёзды -->
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+
+
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but model3d doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app"></div>
+<script src="{% static "js/chunk-vendors.9629591f.js" %}"></script>
+<script src="{% static "js/app.6b7b8f76.js" %}"></script>
+
+
+    <div>
+    {%  if user.is_authenticated %}
+        <ul class="mmenuu">
+            <li><a href=#>Профиль</a>
+                <ul class="ssubmenuu">
+                    <li class="btn btn-outline-light me-2" ><a href="{% url 'image' %}">Загрузить картинку</a> </li>
+                    <li class="btn btn-outline-light me-2"><a href="{% url 'logout' %}">Выйти {{ user.first_name }}</a> </li>
+            </li>
+        </ul>
+    {% else %}
+        <li class="google">
+            <a href="{% url "social:begin" "google-oauth2" %}">Login with Google</a>
+        </li>
+        <li class="btn btn-outline-light me-2" ><a href="{% url 'login' %}">Войти</a> </li>
+        <li class="btn btn-warning" ><a href="{% url 'registration_register' %}">Регистрация</a> </li>
+    {% endif %}
+    </ul>
+    </div>
+    <div>
+        <!-- Выводим уже созданные записи -->
+        {% for b in books %}
+        <p>{{ b.title }}</p>
+        <img src="{{ b.cover.url }}" width="100px">
+        <p>{{ b.description }}</p>
+        <p>{{ b.category }}</p>
+        <p>{{ b.author }}</p>
+            {% ratings b %}
+
+        <!-- Выводим размер картинки -->
+        <p>Оригинальный размер картинки  {{ b.cover.width }}x{{ b.cover.height }}</p>
+        <br/>
+        <a href="{{ b.book }}">Книга</a>
+        {% endfor %}
+    </div>
+</body>
+</html>

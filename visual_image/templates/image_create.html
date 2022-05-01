@@ -1,0 +1,25 @@
+{% load static %}
+{% load ratings %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <title>Image</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Выводим каждое поле формы в отдельном параграфе -->
+    {{ form.as_p }}
+    <button type="submit">Загрузка</button>
+</form>
