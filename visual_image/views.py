@@ -21,7 +21,9 @@ class ImageCreate(CreateView):
     # в случае успешного сохранения формы
     success_url = '/home/'
 
-
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(ImageCreate, self).form_valid(form)
 
 def home_page(request):
     # POST - обязательный метод

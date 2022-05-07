@@ -29,13 +29,16 @@ class Image(models.Model):
     description = models.TextField(max_length=150, null=True, verbose_name="Описание")
     category = models.ForeignKey(Category("verbose_name"), on_delete=models.CASCADE, verbose_name='Категория')
     cover = models.ImageField(upload_to=user_directory_path)
-
     def __str__(self):
         return self.title
 
 
 
 
+class Foo(models.Model):
+    image = models.CharField(Image, max_length=100)
+    ratings = GenericRelation(Rating, related_query_name='foos')
 
+# Foo.objects.filter(ratings__isnull=False).order_by('ratings__average')
 
 # Create your models here.

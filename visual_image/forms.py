@@ -13,8 +13,7 @@ class ImageForm(ModelForm):
         # которой создается форма
         model = Image
         # Включаем все поля с модели в форму
-        fields = ['user',
-                  'author',
+        fields = ['author',
                   'title',
                   'description',
                   'category',
