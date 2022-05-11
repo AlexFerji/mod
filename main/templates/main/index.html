@@ -51,19 +51,21 @@
     </div>
     <div>
         <!-- Выводим уже созданные записи -->
-        {% for b in books %}
-        <p>{{ b.title }}</p>
-        <img src="{{ b.cover.url }}" width="100px">
-        <p>{{ b.description }}</p>
-        <p>{{ b.category }}</p>
-        <p>{{ b.author }}</p>
-            {% ratings b %}
+        {% for image in images %}
+        <p>{{ image.title }}</p>
+        <img src="{{ image.cover.url }}" width="100px">
+        <p>{{ image.description }}</p>
+        <p>{{ image.category }}</p>
+        <p>{{ image.author }}</p>
+            {% ratings image %}
+
 
         <!-- Выводим размер картинки -->
-        <p>Оригинальный размер картинки  {{ b.cover.width }}x{{ b.cover.height }}</p>
+        <p>Оригинальный размер картинки  {{ image.cover.width }}x{{ image.cover.height }}</p>
         <br/>
-        <a href="{{ b.book }}">Книга</a>
+        <a href="{{ image.book }}">Картинка</a>
         {% endfor %}
+        <br/>
     </div>
 </body>
 </html>

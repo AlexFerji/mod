@@ -29,6 +29,7 @@ class Image(models.Model):
     description = models.TextField(max_length=150, null=True, verbose_name="Описание")
     category = models.ForeignKey(Category("verbose_name"), on_delete=models.CASCADE, verbose_name='Категория')
     cover = models.ImageField(upload_to=user_directory_path)
+    ratings = GenericRelation(Rating, related_query_name='foos')
     def __str__(self):
         return self.title
 

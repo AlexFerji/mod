@@ -1,10 +1,11 @@
 from .models import Image
 from django.forms import ModelForm
+from django import forms
 
 
 
 
-class ImageForm(ModelForm):
+class ImageForm(forms.ModelForm):
 
 
 

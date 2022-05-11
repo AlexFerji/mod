@@ -19,25 +19,10 @@ class ImageCreate(CreateView):
     template_name = 'image_create.html'
     # На какую страницу будет перенаправление
     # в случае успешного сохранения формы
-    success_url = '/home/'
+    success_url = '/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(ImageCreate, self).form_valid(form)
-
-def home_page(request):
-    # POST - обязательный метод
-    if request.method == 'POST' and request.FILES:
-        # получаем загруженный файл
-        file = request.FILES['myfile1']
-        fs = FileSystemStorage()
-        # сохраняем на файловой системе
-        filename = fs.save(file.name, file)
-        # получение адреса по которому лежит файл
-        file_url = fs.url(filename)
-        return render(request, 'main/index.html', {
-            'file_url': file_url
-        })
-    return render(request, 'main/index.html.html')
 
 # Create your views here.
