@@ -13,4 +13,10 @@ urlpatterns = [
     path('', include('visual_image.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
 
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if settings.DEBUG:
+
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,7 +1,9 @@
 {% load static %}
 {% load ratings %}
+{% load widget_tweaks %}
+{% load i18n %}
 <!DOCTYPE html>
-{% load static %}
+
 <html lang="">
 <head>
     <meta charset="utf-8">
@@ -9,12 +11,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" href="{% static "favicon.ico" %}">
     <title>model3d</title>
-    <link href="{% static "css/chunk-a694db38.08d8959d.css" %}" rel="prefetch">
-    <link href="{% static "js/chunk-a694db38.5e13423f.js" %}" rel="prefetch">
-    <link href="{% static "css/app.ba35e7e7.css" %}" rel="preload" as="style">
-    <link href="{% static "js/app.6b7b8f76.js" %}" rel="preload" as="script">
-    <link href="{% static "js/chunk-vendors.9629591f.js" %}" rel="preload" as="script">
-    <link href="{% static "css/app.ba35e7e7.css" %}" rel="stylesheet">
+    {#    <link href="{% static "css/chunk-a694db38.08d8959d.css" %}" rel="prefetch">#}
+    {#    <link href="{% static "js/chunk-a694db38.5e13423f.js" %}" rel="prefetch">#}
+    {#    <link href="{% static "css/app.ba35e7e7.css" %}" rel="preload" as="style">#}
+    {#    <link href="{% static "js/app.6b7b8f76.js" %}" rel="preload" as="script">#}
+    {#    <link href="{% static "js/chunk-vendors.9629591f.js" %}" rel="preload" as="script">#}
+    {#    <link href="{% static "css/app.ba35e7e7.css" %}" rel="stylesheet">#}
+    <link href="{% static "css/drob.css" %}" rel="stylesheet">
+    <link href="{% static "js/fitFun.js" %}" rel="preload" as="script">
 
     <!-- Звёзды -->
     <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
@@ -23,49 +27,120 @@
 
 </head>
 <body>
-<noscript>
-    <strong>We're sorry but model3d doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-</noscript>
-<div id="app"></div>
-<script src="{% static "js/chunk-vendors.9629591f.js" %}"></script>
-<script src="{% static "js/app.6b7b8f76.js" %}"></script>
+{#<noscript>#}
+{#    <strong>We're sorry but model3d doesn't work properly without JavaScript enabled. Please enable it to#}
+{#        continue.</strong>#}
+{#</noscript>#}
+{#<div id="app"></div>#}
+{#<script src="{% static "js/chunk-vendors.9629591f.js" %}"></script>#}
+{#<script src="{% static "js/app.6b7b8f76.js" %}"></script>#}
+{##}
 
-
-    <div>
-    {%  if user.is_authenticated %}
+<div>
+    {% if user.is_authenticated %}
         <ul class="mmenuu">
-            <li><a href=#>Профиль</a>
-                <ul class="ssubmenuu">
-                    <li class="btn btn-outline-light me-2" ><a href="{% url 'image' %}">Загрузить картинку</a> </li>
-                    <li class="btn btn-outline-light me-2"><a href="{% url 'logout' %}">Выйти {{ user.first_name }}</a> </li>
-            </li>
-        </ul>
-    {% else %}
+        <li><a href=#>Профиль</a>
+            <ul class="ssubmenuu">
+                <li class="btn btn-outline-light me-2"><a href="{% url 'image' %}">Загрузить картинку</a></li>
+                <li class="btn btn-outline-light me-2"><a href="{% url 'logout' %}">Выйти {{ user.first_name }}</a></li>
+                </li>
+            </ul>
+            {% else %}
         <li class="google">
             <a href="{% url "social:begin" "google-oauth2" %}">Login with Google</a>
         </li>
-        <li class="btn btn-outline-light me-2" ><a href="{% url 'login' %}">Войти</a> </li>
-        <li class="btn btn-warning" ><a href="{% url 'registration_register' %}">Регистрация</a> </li>
+        <li class="btn btn-outline-light me-2"><a href="{% url 'login' %}">Войти</a></li>
+        <li class="btn btn-warning"><a href="{% url 'registration_register' %}">Регистрация</a></li>
     {% endif %}
     </ul>
-    </div>
+</div>
+<div>
     <div>
-        <!-- Выводим уже созданные записи -->
-        {% for image in images %}
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="#">Сортиовать по:</a>
+
+                    <!-- первый уровень выпадающего списка -->
+                    <ul>
+                        <li><a type="submit" href="#">{{ filter.form.category.label_tag }}
+                    {% render_field filter.form.category class='form-control' %}</a>
+                            <ul>
+                                <li><a href="#" >{{ filter.form.category }}
+                                </a></li>
+                            </ul>
+                        </li>
+
+                        <li><a type="submit" href="#">{{ filter.form.author.label_tag }}
+                                    {% render_field filter.form.author class='form-control' %}</a>
+                            <ul>
+                                <li><a type="submit" href="#">
+                                </a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="#">Tutorials</a>
+
+                            <!-- второй уровень выпадающего списка -->
+                            <ul>
+                                <li><a href="#">Stuff</a></li>
+                                <li><a href="#">Things</a></li>
+                                <li><a href="#">Other Stuff</a></li>
+                            </ul>
+                            <!—конец второго уровня выпадающего списка -->
+
+                        </li>
+                    </ul>
+                    <!—конец первого уровня выпадающего списка -->
+
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+    {##}
+    <form method="get">
+        <div class="well">
+            <h4 style="margin-top: 0">Filter</h4>
+            <div class="row">
+                <div class="form-group col-sm-4 col-md-3">
+                    {{ filter.form.author.label_tag }}
+                    {% render_field filter.form.author class='form-control' %}
+                </div>
+                <div class="form-group col-sm-4 col-md-3">
+                    {{ filter.form.category.label_tag }}
+                    {% render_field filter.form.category class='form-control' %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-search"></span>Search
+            </button>
+        </div>
+    </form>
+    <ul>
+        {% for obj in filter.qs %}
+            <p>{{ obj.title }}</p>
+            <img src="{{ obj.cover.url }}" width="100px">
+            <p>{{ obj.author }}</p>{{ obj.category }}<br/>
+        {% endfor %}
+    </ul>
+
+    <!-- Выводим уже созданные записи -->
+    {% for image in images %}
         <p>{{ image.title }}</p>
         <img src="{{ image.cover.url }}" width="100px">
         <p>{{ image.description }}</p>
         <p>{{ image.category }}</p>
         <p>{{ image.author }}</p>
-            {% ratings image %}
+        {% ratings image %}
 
 
         <!-- Выводим размер картинки -->
-        <p>Оригинальный размер картинки  {{ image.cover.width }}x{{ image.cover.height }}</p>
+        <p>Оригинальный размер картинки {{ image.cover.width }}x{{ image.cover.height }}</p>
         <br/>
         <a href="{{ image.book }}">Картинка</a>
-        {% endfor %}
-        <br/>
-    </div>
+    {% endfor %}
+    <br/>
+</div>
 </body>
 </html>

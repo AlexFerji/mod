@@ -1,10 +1,22 @@
 from django.shortcuts import render
 from visual_image.models import Image
+from .filters import ImageFilter
 
-def index(request):
+
+def filter (request):
+    image = Image.objects.all()
+    images = ImageFilter(request.GET, queryset=image)
+    return render(request, 'main/index.html', {"filter": images})
+
+
+def index (request):
     if request.method == 'GET':
-        images = Image.objects.order_by('title')
-        return render(request, 'main/index.html', {"images": images })
+        image = Image.objects.all()
+        images = ImageFilter(request.GET, queryset=image)
+        #images = Image.objects.all()
+        return render(request, 'main/index.html', {"filter": images})
+
+
 
 
 

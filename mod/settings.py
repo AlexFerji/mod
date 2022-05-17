@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'users',
     'User_signup',
     'visual_image',
-    'star_ratings'
+    'star_ratings',
+    'widget_tweaks',
+    'django_filters',
+
 ]
 
 MIDDLEWARE = [
@@ -76,6 +79,14 @@ TEMPLATES = [
         },
     },
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend'),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5
+}
+
 
 # SOCIAL_AUTH_PIPELINE = (
 #
