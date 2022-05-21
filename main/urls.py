@@ -7,8 +7,9 @@ from django.views.generic.list import ListView
 from visual_image.models import Image
 #from main.views import indexImage
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('filter/', views.filter, name='filter'),
+    #path('', views.index, name='home'),
+    path('', views.filter_set, name='home'),
+    #path('filter/', views.filter, name='filter'),
     path('login/', views.login, name='login'),
     path('', views.Imag, name='imag')
 

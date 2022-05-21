@@ -13,7 +13,7 @@ def user_directory_path(instance, filename):
 
 
 class Category (models.Model):
-    name = models.CharField(max_length=64, verbose_name='Название')
+    name = models.CharField(max_length=64, verbose_name='')
 
     def __str__(self):
         return self.name
@@ -25,9 +25,10 @@ class Image(models.Model):
     author = models.CharField(max_length=50, null=True, blank=False, verbose_name='Автору')
     title = models.CharField(max_length=20, verbose_name="Название")
     description = models.TextField(max_length=150, null=True, verbose_name="Описание")
-    category = models.ForeignKey(Category("verbose_name"), on_delete=models.CASCADE, verbose_name='Категория')
+    category = models.ForeignKey(Category("verbose_name"), on_delete=models.CASCADE, verbose_name='Категориям')
     cover = models.ImageField(upload_to=user_directory_path)
-    ratings = GenericRelation(Rating, related_query_name='Image')
+    ratings = GenericRelation(Rating, related_query_name='image')
+
     def __str__(self):
         return self.title
 
@@ -35,9 +36,6 @@ class Image(models.Model):
 
 
 
-class Foo(models.Model):
-    image = models.CharField(Image, max_length=100)
-    ratings = GenericRelation(Rating, related_query_name='foos')
 
 # Foo.objects.filter(ratings__isnull=False).order_by('ratings__average')
 
