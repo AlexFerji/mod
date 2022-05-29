@@ -10,6 +10,7 @@ urlpatterns = [
     path('accounts/', include('User_signup.backends.activation.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('', include('social_django.urls', namespace='social')),
+    path('api-auth/', include('rest_framework.urls')),
     path('', include('visual_image.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
 

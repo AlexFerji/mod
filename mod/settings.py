@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'main',
-    'social_django',
+    #'social_django',
     'users',
+    'swapper',
     'User_signup',
     'visual_image',
     'star_ratings',
     'widget_tweaks',
+    'rest_framework',
     'django_filters',
 
 ]
