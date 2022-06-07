@@ -1,5 +1,12 @@
 from rest_framework import serializers
+from rest_framework.validators import  UniqueTogetherValidator
+
 from .models import Image, Category
+
+from star_ratings.models import Rating
+
+
+
 
 class ImagePostSerializer(serializers.Serializer):
     author = serializers.CharField(max_length=100)
@@ -13,22 +20,15 @@ class ImagePostSerializer(serializers.Serializer):
         return Image.objects.create(**validated_data)
 
 
+    class Meta:
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Image.objects.all(),
+                fields=['title'],
+                message='Изображение с такиим именем уже существует'
+            )
+        ]
 
-class TaggedObjectRelatedField(serializers.RelatedField):
-    """
-    A custom field to use for the `tagged_object` generic relationship.
-    """
-
-    def to_representation(self, value):
-        """
-        Serialize tagged objects to a simple textual representation.
-        """
-        if isinstance(value, Image):
-            serializer = ImageSerializer(value)
-        else:
-            raise Exception('Unexpected type of tagged object')
-
-        return serializer.data
 
 
 class ImageSerializer(serializers.ModelSerializer):

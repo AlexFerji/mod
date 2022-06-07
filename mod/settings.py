@@ -85,6 +85,10 @@ TEMPLATES = [
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend'),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5
@@ -107,7 +111,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mydb',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '394822sid',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -205,3 +209,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1078330582492-7k85fqt9gjpqf93c21d2c3gi7nmp99j7.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+#STAR_RATINGS_RATING_MODEL = 'visual_image.MyRating'
+

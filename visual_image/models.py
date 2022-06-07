@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from users.models import CustomUser
 from django.contrib.contenttypes.fields import GenericRelation
-from star_ratings.models import Rating
+from star_ratings.models import Rating, AbstractBaseRating
 
 
 def user_directory_path(instance, filename):
@@ -16,7 +16,10 @@ class Category (models.Model):
     name = models.CharField(max_length=64, verbose_name='')
 
     def __str__(self):
-        return self.name
+        return '{}'.format(self.name)
+
+    # def __str__(self):
+    #     return self.name
 
 
 class Image(models.Model):
@@ -25,12 +28,23 @@ class Image(models.Model):
     author = models.CharField(max_length=50, null=True, blank=False, verbose_name='Автору')
     title = models.CharField(max_length=20, verbose_name="Название")
     description = models.TextField(max_length=150, null=True, verbose_name="Описание")
-    category = models.ForeignKey(Category("verbose_name"), on_delete=models.CASCADE, verbose_name='Категориям')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     cover = models.ImageField(upload_to=user_directory_path)
     ratings = GenericRelation(Rating, related_query_name='image')
 
     def __str__(self):
-        return self.title
+        return '{0} -- {1} ({2}) -- {3}. {4}'.format(
+            self.user.email,
+            self.author,
+            self.title,
+            self.description,
+            self.category.name,
+            self.cover.url,
+            #self.ratings
+        )
+
+    # def __str__(self):
+    #     return self.title
 
 
 

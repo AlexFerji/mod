@@ -1,22 +1,21 @@
+from __future__ import unicode_literals
+
 from django.contrib import admin
-from django.urls import path, include
-from main.views import Image
+from django.urls import path
+from main.views import IndexImage, jsoneIndex
 from django.conf.urls.static import static
 from django.conf import settings
-
-from rest_framework import routers
-from visual_image import views
 from main import views
+from rest_framework import routers
 
 
 # router = routers.DefaultRouter()
 # router.register(r'home', views.Index)
 
 urlpatterns = [
-      # path('', include(router.urls)),
-      # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-    path('', Image.as_view(), name='home'),
-   # path('verif/', views.veriv, 'verif'),
+    path('test/', views.test, name='test'),
+    path('image/', jsoneIndex.as_view(), name='image' ),
+    path('', IndexImage.as_view(), name='home'),
 
 
 

@@ -2,6 +2,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+# from rest_framework import routers
+# from main.views import Image
+#
+#
+# router = routers.SimpleRouter()
+# router.register(r'image',Image)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,6 +17,7 @@ urlpatterns = [
     path('accounts/', include('User_signup.backends.activation.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('', include('social_django.urls', namespace='social')),
+    # path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('', include('visual_image.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
