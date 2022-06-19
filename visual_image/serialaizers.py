@@ -20,14 +20,14 @@ class ImagePostSerializer(serializers.Serializer):
         return Image.objects.create(**validated_data)
 
 
-    class Meta:
-        validators = [
-            UniqueTogetherValidator(
-                queryset=Image.objects.all(),
-                fields=['title'],
-                message='Изображение с такиим именем уже существует'
-            )
-        ]
+    # class Meta:
+    #     validators = [
+    #         UniqueTogetherValidator(
+    #             queryset=Image.objects.all(),
+    #             fields=['title'],
+    #             message='Изображение с такиим именем уже существует'
+    #         )
+    #     ]
 
 
 
