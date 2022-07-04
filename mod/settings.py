@@ -38,15 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'main',
-    #'social_django',
     'users',
     'swapper',
-    'User_signup',
     'visual_image',
     'star_ratings',
-    'widget_tweaks',
     'rest_framework',
+    'generic_relations',
     'django_filters',
 
 ]
@@ -75,8 +72,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
 
             ],
         },
@@ -111,7 +106,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mydb',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '394822sid',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -142,7 +137,6 @@ AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.google.GoogleOAuth',
     # 'social_core.backends.twitter.TwitterOAuth',
 
-    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     #'django.core.mail.backends.console.EmailBackend'
 )

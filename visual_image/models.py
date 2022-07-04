@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from users.models import CustomUser
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating, AbstractBaseRating
-import datetime
 from time import gmtime, strftime
 
 
@@ -52,11 +51,3 @@ class Image(models.Model):
     # def __str__(self):
     #     return self.title
 
-
-
-
-
-
-# Foo.objects.filter(ratings__isnull=False).order_by('ratings__average')
-
-# Create your models here.

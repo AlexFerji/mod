@@ -4,8 +4,18 @@ from rest_framework.validators import  UniqueTogetherValidator
 from .models import Image, Category
 
 from star_ratings.models import Rating
+from generic_relations.relations import GenericRelatedField
 
 
+
+class RatingObjectRelatedField(serializers.RelatedField):
+    def to_representation(self, value):
+        if isinstance(value, Image):
+            serializer = ImagePostSerializer(value)
+        else:
+            raise Exception('Unexpected type of tagged object')
+
+        return serializer.data
 
 
 class ImagePostSerializer(serializers.Serializer):
@@ -14,6 +24,12 @@ class ImagePostSerializer(serializers.Serializer):
     description = serializers.CharField(max_length=100)
     category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects)
     cover = serializers.ImageField()
+    ratings = RatingObjectRelatedField(many=True, queryset=Rating.objects.all())
+
+    class Meta:
+        model = Image
+        fields = ('ratings')
+
 
 
     def create(self, validated_data):
@@ -48,3 +64,5 @@ class ImageSerializer(serializers.ModelSerializer):
     def get_image_url(self, obj):
         request = self.context.get("request")
         return request.build_absolute_uri(obj.cover.url)
+
+
