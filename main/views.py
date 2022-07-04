@@ -86,7 +86,7 @@ from star_ratings.models import Rating
 
 class Image(generics.ListAPIView):
     queryset = Image.objects.all()
-    serializer_class = ImagePostSerializer
+    serializer_class = ImageSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ImageFilter
 

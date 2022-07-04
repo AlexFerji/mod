@@ -24,7 +24,7 @@ class ImagePostSerializer(serializers.Serializer):
     description = serializers.CharField(max_length=100)
     category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects)
     cover = serializers.ImageField()
-    ratings = RatingObjectRelatedField(many=True, queryset=Rating.objects.all())
+    #ratings = RatingObjectRelatedField(many=True, queryset=Rating.objects.all())
 
     class Meta:
         model = Image
@@ -54,7 +54,7 @@ class ImageSerializer(serializers.ModelSerializer):
     cover = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
     category = serializers.ReadOnlyField(source='category.name')
     user = serializers.EmailField()
-    #ratings = TaggedObjectRelatedField(read_only=True)
+    ratings = RatingObjectRelatedField(many=True, queryset=Rating.objects.all())
 
     class Meta:
         model = Image
