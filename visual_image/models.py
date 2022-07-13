@@ -24,9 +24,9 @@ class Category (models.Model):
 
 
 class Image(models.Model):
-
+    image_id = models.AutoField(primary_key=True, verbose_name='image_id')
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, verbose_name="Почта" )
-    author = models.CharField(max_length=50, null=True, blank=False, verbose_name='Автору')
+    author = models.CharField(max_length=100, null=True, blank=False, verbose_name='Автору')
     title = models.CharField(max_length=100,  verbose_name="Название")
     description = models.TextField(max_length=150, null=True, verbose_name="Описание")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -35,6 +35,7 @@ class Image(models.Model):
 
     def __str__(self):
         return '{0} -- {1} ({2}) -- {3}. {4}'.format(
+            self.image_id,
             self.user.email,
             self.author,
             self.title,
@@ -44,9 +45,11 @@ class Image(models.Model):
             #self.ratings
         )
 
+
     def save(self, *args, **kwargs):
         self.title += strftime("%Y-%m-%d %H:%M:%S", gmtime())
         super(Image, self).save(*args, **kwargs)
+
 
     # def __str__(self):
     #     return self.title
